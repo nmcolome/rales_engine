@@ -2,16 +2,16 @@ require "rails_helper"
 
 RSpec.describe "merchants endpoints" do
   it "returns all records" do
-    merchants = create_list(:merchant, 5)
+    create_list(:merchant, 5)
 
     get "/api/v1/merchants"
 
     expect(response).to be_successful
 
     data = JSON.parse(response.body)
-    items = data["data"]
+    merchant = data["data"]
 
-    expect(items.count).to eq(5)
+    expect(merchant.count).to eq(5)
   end
 
   it "returns a specific record based on id" do
