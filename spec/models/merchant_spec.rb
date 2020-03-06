@@ -4,4 +4,8 @@ RSpec.describe Merchant, type: :model do
   describe "attributes" do
     it { should respond_to :name }
   end
+
+  describe "relationships" do
+    it { should have_many :items }
+  end
 end
