@@ -5,10 +5,9 @@ RSpec.describe Item, type: :model do
     it { should respond_to :name }
     it { should respond_to :description }
     it { should respond_to :unit_price }
-    it { should respond_to :merchant_id }
   end
 
   describe "relationships" do
-    it { should belong_to(:merchant) }
+    it { should belong_to :merchant }
   end
 end
