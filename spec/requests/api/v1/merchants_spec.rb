@@ -8,7 +8,8 @@ RSpec.describe "merchants endpoints" do
 
     expect(response).to be_successful
 
-    items = JSON.parse(response.body)
+    data = JSON.parse(response.body)
+    items = data["data"]
 
     expect(items.count).to eq(5)
   end
@@ -20,8 +21,12 @@ RSpec.describe "merchants endpoints" do
 
     expect(response).to be_successful
 
-    item = JSON.parse(response.body)
+    data = JSON.parse(response.body)
+    item = data["data"]
 
-    expect(item["id"]).to eq(id)
+    expect(item["id"].to_i).to eq(id)
+    expect(item["type"]).to eq("merchants")
+    expect(item.keys).to eq(["id", "type", "attributes"])
+    expect(item["attributes"].keys).to eq(["name"])
   end
 end
