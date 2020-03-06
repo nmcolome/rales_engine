@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Customers endpoints" do
   it "returns all customers" do
-    customers = create_list(:customer, 5)
+    create_list(:customer, 5)
 
     get "/api/v1/customers"
 
