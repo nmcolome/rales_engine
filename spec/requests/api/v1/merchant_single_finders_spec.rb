@@ -9,10 +9,10 @@ RSpec.describe "Merchant find endpoints" do
 
       expect(response).to be_successful
 
-      raw = JSON.parse(repsonse.body)
+      raw = JSON.parse(response.body)
       merchant = raw["data"]
 
-      expect(merchant["id"].to_s).to eq(id)
+      expect(merchant["id"].to_i).to eq(id)
     end
 
     it "finds based on name" do
@@ -22,7 +22,7 @@ RSpec.describe "Merchant find endpoints" do
 
       expect(response).to be_successful
 
-      raw = JSON.parse(repsonse.body)
+      raw = JSON.parse(response.body)
       merchant = raw["data"]
 
       expect(merchant["attributes"]["name"]).to eq(name)
