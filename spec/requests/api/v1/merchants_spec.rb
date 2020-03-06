@@ -12,4 +12,16 @@ RSpec.describe "merchants endpoints" do
 
     expect(items.count).to eq(5)
   end
+
+  it "returns a specific record based on id" do
+    id = create(:merchant).id
+
+    get "/api/v1/merchants/#{id}"
+
+    expect(response).to be_successful
+
+    item = JSON.parse(response.body)
+
+    expect(item["id"]).to eq(id)
+  end
 end
