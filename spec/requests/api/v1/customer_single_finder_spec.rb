@@ -12,7 +12,7 @@ RSpec.describe "Customer find endpoint" do
       raw = JSON.parse(response.body)
       customer = raw["data"]
 
-      expect(customer["id"]).to eq(id)
+      expect(customer["id"].to_i).to eq(id)
     end
 
     it "finds based on first name" do
@@ -25,7 +25,7 @@ RSpec.describe "Customer find endpoint" do
       raw = JSON.parse(response.body)
       customer = raw["data"]
 
-      expect(customer["first_name"]).to eq(first_name)
+      expect(customer["attributes"]["first_name"]).to eq(first_name)
     end
 
     it "finds based on last name" do
@@ -38,7 +38,7 @@ RSpec.describe "Customer find endpoint" do
       raw = JSON.parse(response.body)
       customer = raw["data"]
 
-      expect(customer["last_name"]).to eq(last_name)
+      expect(customer["attributes"]["last_name"]).to eq(last_name)
     end
   end
 end
