@@ -13,4 +13,20 @@ RSpec.describe "Customers endpoints" do
 
     expect(customers.count).to eq(5)
   end
+
+  it "resturns a specific customer" do
+    id = create(:customer).id
+
+    get "/api/v1/customers/#{id}"
+
+    expect(response).to be_successful
+
+    raw = JSON.parse(response.body)
+    customer = raw["data"]
+
+    expect(customer["id"].to_i).to eq(id)
+    expect(customer.keys).to eq(["id", "type", "attributes"])
+    expect(customer["type"]).to eq("customers")
+    expect(customer["attributes"].keys).to eq(["first_name", "last_name"])
+  end
 end
