@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Items relationships endpoints" do
   it "returns all invoice_items associated with an item" do
     id = create(:item).id
-    invoice_items = create_list(:invoice_item, 10, item_id: id)
+    list= create_list(:invoice_item, 10, item_id: id)
 
     get "/api/v1/items/#{id}/invoice_items"
 
@@ -13,7 +13,7 @@ RSpec.describe "Items relationships endpoints" do
     invoice_items = raw["data"]
 
     expect(invoice_items.count).to eq(10)
-    expect(invoice_items[0]["id"].to_i).to eq(invoice_items[0].id)
+    expect(invoice_items[0]["id"].to_i).to eq(list[0].id)
     expect(invoice_items[0]["type"]).to eq("invoice_items")
     expect(invoice_items[0].keys).to eq(["id", "type", "attributes"])
     expect(invoice_items[0]["attributes"].keys).to eq(["quantity", "unit_price", "item_id", "invoice_id"])
