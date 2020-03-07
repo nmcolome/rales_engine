@@ -26,4 +26,11 @@ class Merchant < ApplicationRecord
       Merchant.where(updated_at: params["updated_at"])
     end
   end
+
+  def self.revenue_ranking(quantity)
+    Merchant.joins(invoices: :invoice_items)
+            .group(:id)
+            .order("sum(quantity * unit_price) DESC")
+            .limit(quantity)
+  end
 end
