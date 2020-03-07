@@ -15,7 +15,7 @@ RSpec.describe "Items find_all endpoints" do
       raw = JSON.parse(response.body)
       item = raw["data"]
 
-      expect(item["id"].to_i).to eq(@item.id)
+      expect(item[0]["id"].to_i).to eq(@item.id)
     end
 
     it "finds based on name" do

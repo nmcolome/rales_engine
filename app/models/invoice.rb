@@ -21,7 +21,7 @@ class Invoice < ApplicationRecord
 
   def self.search_all(params)
     if params["id"]
-      Invoice.find(params["id"])
+      Invoice.where(id: params["id"])
     elsif params["status"]
       Invoice.where(status: params["status"].downcase)
     elsif params["created_at"]

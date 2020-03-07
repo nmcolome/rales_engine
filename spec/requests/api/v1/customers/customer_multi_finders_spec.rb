@@ -15,7 +15,7 @@ RSpec.describe "Customer find_all endpoints" do
       raw = JSON.parse(response.body)
       customers = raw["data"]
 
-      expect(customers["id"].to_i).to eq(@customer1.id)
+      expect(customers[0]["id"].to_i).to eq(@customer1.id)
     end
 
     it "finds based on first_name" do

@@ -17,7 +17,7 @@ class Merchant < ApplicationRecord
 
   def self.search_all(params)
     if params["id"]
-      Merchant.find(params["id"])
+      Merchant.where(id: params["id"])
     elsif params["name"]
       Merchant.where(name: params["name"].titlecase)
     elsif params["created_at"]

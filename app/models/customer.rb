@@ -18,7 +18,7 @@ class Customer < ApplicationRecord
 
   def self.search_all(params)
     if params["id"]
-      Customer.find(params["id"])
+      Customer.where(id: params["id"])
     elsif params["first_name"]
       Customer.where(first_name: params["first_name"].capitalize)
     elsif params["last_name"]

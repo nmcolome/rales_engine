@@ -21,7 +21,7 @@ class Transaction < ApplicationRecord
 
   def self.search_all(params)
     if params["id"]
-      Transaction.find(params["id"])
+      Transaction.where(id: params["id"])
     elsif params["credit_card_number"]
       Transaction.where(credit_card_number: params["credit_card_number"])
     elsif params["credit_card_expiration_date"]

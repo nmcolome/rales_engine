@@ -15,7 +15,7 @@ RSpec.describe "InvoiceItem find_all endpoints" do
       raw = JSON.parse(response.body)
       invoice_item = raw["data"]
 
-      expect(invoice_item["id"].to_i).to eq(@invoice_item.id)
+      expect(invoice_item[0]["id"].to_i).to eq(@invoice_item.id)
     end
 
     it "finds based on quantity" do
