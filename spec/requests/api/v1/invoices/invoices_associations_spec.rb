@@ -36,4 +36,58 @@ RSpec.describe "Invoices relationships endpoints" do
     expect(invoice_items[0].keys).to eq(["id", "type", "attributes"])
     expect(invoice_items[0]["attributes"].keys).to eq(["quantity", "unit_price", "item_id", "invoice_id"])
   end
+
+  it "returns all items associated with an invoice" do
+    id = create(:invoice).id
+    invoice_items = create_list(:transaction, 10, invoice_id: id)
+
+    get "/api/v1/invoices/#{id}/items"
+
+    expect(response).to be_successful
+
+    raw = JSON.parse(response.body)
+    items = raw["data"]
+
+    expect(items.count).to eq(10)
+    expect(items[0]["id"].to_i).to eq(invoice_items[0].id)
+    expect(items[0]["type"]).to eq("items")
+    expect(items[0].keys).to eq(["id", "type", "attributes"])
+    expect(items[0]["attributes"].keys).to eq(["name", "description", "unit_price", "merchant_id"])
+  end
+
+  it "returns all customers associated with an invoice" do
+    id = create(:invoice).id
+    invoice_customers = create_list(:customer, 10, invoice_id: id)
+
+    get "/api/v1/invoices/#{id}/customers"
+
+    expect(response).to be_successful
+
+    raw = JSON.parse(response.body)
+    customers = raw["data"]
+
+    expect(customers.count).to eq(10)
+    expect(customers[0]["id"].to_i).to eq(invoice_customers[0].id)
+    expect(customers[0]["type"]).to eq("customers")
+    expect(customers[0].keys).to eq(["id", "type", "attributes"])
+    expect(customers[0]["attributes"].keys).to eq(["first_name", "last_name"])
+  end
+
+  it "returns all merchants associated with an invoice" do
+    id = create(:invoice).id
+    invoice_merchants = create_list(:transaction, 10, invoice_id: id)
+
+    get "/api/v1/invoices/#{id}/merchants"
+
+    expect(response).to be_successful
+
+    raw = JSON.parse(response.body)
+    merchants = raw["data"]
+
+    expect(merchants.count).to eq(10)
+    expect(merchants[0]["id"].to_i).to eq(invoice_merchants[0].id)
+    expect(merchants[0]["type"]).to eq("merchants")
+    expect(merchants[0].keys).to eq(["id", "type", "attributes"])
+    expect(merchants[0]["attributes"].keys).to eq(["name"])
+  end
 end
