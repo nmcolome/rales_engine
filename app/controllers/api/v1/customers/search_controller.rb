@@ -1,37 +1,9 @@
 class Api::V1::Customers::SearchController < ApplicationController
   def show
-    render json: CustomersSerializer.new(find_customer)
+    render json: CustomersSerializer.new(Customer.search(params))
   end
 
   def index
-    render json: CustomersSerializer.new(find_all_customers)
-  end
-
-  def find_customer
-    if params["id"]
-      Customer.find(params["id"])
-    elsif params["first_name"]
-      Customer.find_by(first_name: params["first_name"].capitalize)
-    elsif params["last_name"]
-      Customer.find_by(last_name: params["last_name"].capitalize)
-    elsif params["created_at"]
-      Customer.find_by(created_at: params["created_at"])
-    elsif params["updated_at"]
-      Customer.find_by(updated_at: params["updated_at"])
-    end
-  end
-
-  def find_all_customers
-    if params["id"]
-      Customer.find(params["id"])
-    elsif params["first_name"]
-      Customer.where(first_name: params["first_name"].capitalize)
-    elsif params["last_name"]
-      Customer.where(last_name: params["last_name"].capitalize)
-    elsif params["created_at"]
-      Customer.where(created_at: params["created_at"])
-    elsif params["updated_at"]
-      Customer.where(updated_at: params["updated_at"])
-    end
+    render json: CustomersSerializer.new(Customer.search_all(params))
   end
 end

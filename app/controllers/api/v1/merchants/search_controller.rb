@@ -1,33 +1,9 @@
 class Api::V1::Merchants::SearchController < ApplicationController
   def show
-    render json: MerchantsSerializer.new(find_merchant)
+    render json: MerchantsSerializer.new(Merchant.search(params))
   end
 
   def index
-    render json: MerchantsSerializer.new(find_all_merchants)
-  end
-
-  def find_merchant
-    if params["id"]
-      Merchant.find(params["id"])
-    elsif params["name"]
-      Merchant.find_by(name: params["name"].titlecase)
-    elsif params["created_at"]
-      Merchant.find_by(created_at: params["created_at"])
-    elsif params["updated_at"]
-      Merchant.find_by(updated_at: params["updated_at"])
-    end
-  end
-
-  def find_all_merchants
-    if params["id"]
-      Merchant.find(params["id"])
-    elsif params["name"]
-      Merchant.where(name: params["name"].titlecase)
-    elsif params["created_at"]
-      Merchant.where(created_at: params["created_at"])
-    elsif params["updated_at"]
-      Merchant.where(updated_at: params["updated_at"])
-    end
+    render json: MerchantsSerializer.new(Merchant.search_all(params))
   end
 end
