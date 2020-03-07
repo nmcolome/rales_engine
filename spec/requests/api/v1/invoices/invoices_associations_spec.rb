@@ -56,7 +56,7 @@ RSpec.describe "Invoices relationships endpoints" do
 
   it "returns the customer associated with an invoice" do
     customer = create(:customer)
-    id = create(:invoice, customer_id: customer.id)
+    id = create(:invoice, customer_id: customer.id).id
 
     get "/api/v1/invoices/#{id}/customer"
 
@@ -73,7 +73,7 @@ RSpec.describe "Invoices relationships endpoints" do
 
   it "returns the merchant associated with an invoice" do
     merchant = create(:merchant)
-    id = create(:invoice, merchant_id: merchant.id)
+    id = create(:invoice, merchant_id: merchant.id).id
 
     get "/api/v1/invoices/#{id}/merchant"
 
