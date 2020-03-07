@@ -1,7 +1,4 @@
 class InvoiceItemsSerializer
   include FastJsonapi::ObjectSerializer
-  belongs_to :item
-  belongs_to :invoice
-
-  attributes :quantity, :unit_price
+  attributes :quantity, :unit_price, :item_id, :invoice_id
 end
