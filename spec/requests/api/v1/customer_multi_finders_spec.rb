@@ -6,7 +6,7 @@ RSpec.describe "Customer find_all endpoint" do
     @customer1 = @customers[0]
   end
 
-  describe "returns a single customer based on any of the object's attributes" do
+  describe "returns all customers that match the query" do
     it "finds based on id" do
       get "/api/v1/customers/find_all?id=#{@customer1.id}"
 
@@ -15,7 +15,7 @@ RSpec.describe "Customer find_all endpoint" do
       raw = JSON.parse(response.body)
       customers = raw["data"]
 
-      expect(customers[0]["id"].to_i).to eq(id)
+      expect(customers["id"].to_i).to eq(@customer1.id)
     end
 
     it "finds based on first_name" do
@@ -26,9 +26,9 @@ RSpec.describe "Customer find_all endpoint" do
       raw = JSON.parse(response.body)
       customers = raw["data"]
 
-      expect(customers.count).eq (5)
-      expect(customers[0]["data"]["attributes"]["first_name"]).to eq(@customer1.first_name)
-      expect(customers[-1]["data"]["attributes"]["first_name"]).to eq(@customer1.first_name)
+      expect(customers.count).to eq(5)
+      expect(customers[0]["attributes"]["first_name"]).to eq(@customer1.first_name)
+      expect(customers[-1]["attributes"]["first_name"]).to eq(@customer1.first_name)
     end
 
     it "finds based on last_name" do
@@ -39,9 +39,9 @@ RSpec.describe "Customer find_all endpoint" do
       raw = JSON.parse(response.body)
       customers = raw["data"]
 
-      expect(customers.count).eq (5)
-      expect(customers[0]["data"]["attributes"]["last_name"]).to eq(@customer1.last_name)
-      expect(customers[-1]["data"]["attributes"]["last_name"]).to eq(@customer1.last_name)
+      expect(customers.count).to eq(5)
+      expect(customers[0]["attributes"]["last_name"]).to eq(@customer1.last_name)
+      expect(customers[-1]["attributes"]["last_name"]).to eq(@customer1.last_name)
     end
 
     it "finds based on created_at" do
@@ -52,9 +52,8 @@ RSpec.describe "Customer find_all endpoint" do
       raw = JSON.parse(response.body)
       customers = raw["data"]
 
-      expect(customers.count).eq (5)
-      expect(customers[0]["data"]["id"].to_i).to eq(@customer1.id)
-      expect(customers[-1]["data"]["id"].to_i).to eq(@customer1.id)
+      expect(customers.count).to eq(5)
+      expect(customers[0]["id"].to_i).to eq(@customer1.id)
     end
 
     it "finds based on updated_at" do
@@ -65,9 +64,8 @@ RSpec.describe "Customer find_all endpoint" do
       raw = JSON.parse(response.body)
       customers = raw["data"]
 
-      expect(customers.count).eq (5)
-      expect(customers[0]["data"]["id"].to_i).to eq(@customer1.id)
-      expect(customers[-1]["data"]["id"].to_i).to eq(@customer1.id)
+      expect(customers.count).to eq(5)
+      expect(customers[0]["id"].to_i).to eq(@customer1.id)
 
     end
 
@@ -80,9 +78,9 @@ RSpec.describe "Customer find_all endpoint" do
         raw = JSON.parse(response.body)
         customers = raw["data"]
 
-        expect(customers.count).eq (5)
-        expect(customers[0]["data"]["attributes"]["first_name"]).to eq(@customer1.first_name)
-        expect(customers[-1]["data"]["attributes"]["first_name"]).to eq(@customer1.first_name)
+        expect(customers.count).to eq(5)
+        expect(customers[0]["attributes"]["first_name"]).to eq(@customer1.first_name)
+        expect(customers[-1]["attributes"]["first_name"]).to eq(@customer1.first_name)
       end
     end
   end
