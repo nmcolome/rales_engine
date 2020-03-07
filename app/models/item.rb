@@ -22,7 +22,7 @@ class Item < ApplicationRecord
 
   def self.search_all(params)
     if params["id"]
-      Item.find(params["id"])
+      Item.where(id: params["id"])
     elsif params["name"]
       Item.where(name: params["name"].capitalize)
     elsif params["description"]

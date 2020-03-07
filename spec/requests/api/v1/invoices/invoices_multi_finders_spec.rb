@@ -15,7 +15,7 @@ RSpec.describe "Invoice find_all endpoints" do
       raw = JSON.parse(response.body)
       invoice = raw["data"]
 
-      expect(invoice["id"].to_i).to eq(@invoice.id)
+      expect(invoice[0]["id"].to_i).to eq(@invoice.id)
     end
 
     it "finds based on status" do

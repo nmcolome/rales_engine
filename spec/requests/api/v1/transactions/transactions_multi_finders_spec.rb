@@ -15,7 +15,7 @@ RSpec.describe "Transaction find_all endpoints" do
       raw = JSON.parse(response.body)
       transaction = raw["data"]
 
-      expect(transaction["id"].to_i).to eq(@transaction.id)
+      expect(transaction[0]["id"].to_i).to eq(@transaction.id)
     end
 
     it "finds based on credit_card_number" do

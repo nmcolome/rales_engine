@@ -15,7 +15,7 @@ RSpec.describe "Merchant find_all endpoints" do
       raw = JSON.parse(response.body)
       merchant = raw["data"]
 
-      expect(merchant["id"].to_i).to eq(@merchant.id)
+      expect(merchant[0]["id"].to_i).to eq(@merchant.id)
     end
 
     it "finds based on name" do

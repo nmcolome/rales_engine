@@ -18,7 +18,7 @@ class InvoiceItem < ApplicationRecord
 
   def self.search_all(params)
     if params["id"]
-      InvoiceItem.find(params["id"])
+      InvoiceItem.where(id: params["id"])
     elsif params["quantity"]
       InvoiceItem.where(quantity: params["quantity"])
     elsif params["unit_price"]
