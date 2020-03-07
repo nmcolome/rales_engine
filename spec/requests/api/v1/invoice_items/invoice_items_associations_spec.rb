@@ -15,7 +15,7 @@ RSpec.describe "InvoiceItems relationship endpoints" do
     expect(invoices["id"].to_i).to eq(invoice.id)
     expect(invoices["type"]).to eq("invoices")
     expect(invoices.keys).to eq(["id", "type", "attributes"])
-    expect(invoices["attributes"].keys).to eq(["quantity", "unit_price", "item_id", "invoice_id"])
+    expect(invoices["attributes"].keys).to eq(["status", "customer_id", "merchant_id"])
   end
 
   it "returns the item associated with an invoice_item" do
@@ -31,7 +31,7 @@ RSpec.describe "InvoiceItems relationship endpoints" do
 
     expect(items["id"].to_i).to eq(item.id)
     expect(items["type"]).to eq("items")
-    expect(items.keys).to eq(["name", "description", "unit_price", "merchant_id"])
-    expect(items["attributes"].keys).to eq(["name"])
+    expect(items.keys).to eq(["id", "type", "attributes"])
+    expect(items["attributes"].keys).to eq(["name", "description", "unit_price", "merchant_id"])
   end
 end
