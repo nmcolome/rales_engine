@@ -1,6 +1,5 @@
 class Customer < ApplicationRecord
   has_many :invoices
-  has_many :merchants, through: :invoices
 
   def self.search(params)
     if params["id"]
@@ -28,5 +27,9 @@ class Customer < ApplicationRecord
     elsif params["updated_at"]
       Customer.where(updated_at: params["updated_at"])
     end
+  end
+
+  def self.transactions(id)
+    Transaction.joins(:invoice).where(invoices: {customer_id: id})
   end
 end
