@@ -22,11 +22,11 @@ RSpec.describe "merchants endpoints" do
     expect(response).to be_successful
 
     data = JSON.parse(response.body)
-    item = data["data"]
+    merchant = data["data"]
 
-    expect(item["id"].to_i).to eq(id)
-    expect(item["type"]).to eq("merchants")
-    expect(item.keys).to eq(["id", "type", "attributes"])
-    expect(item["attributes"].keys).to eq(["name"])
+    expect(merchant["id"].to_i).to eq(id)
+    expect(merchant["type"]).to eq("merchants")
+    expect(merchant.keys).to eq(["id", "type", "attributes"])
+    expect(merchant["attributes"].keys).to eq(["name"])
   end
 end
