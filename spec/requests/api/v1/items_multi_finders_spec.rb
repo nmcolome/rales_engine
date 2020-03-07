@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Items find endpoints" do
+RSpec.describe "Items find_all endpoints" do
   before :each do
     @list = create_list(:item, 5, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
     @item = @list[0]

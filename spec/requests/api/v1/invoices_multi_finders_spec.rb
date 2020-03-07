@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Invoice find endpoints" do
+RSpec.describe "Invoice find_all endpoints" do
   before :each do
     @list = create_list(:invoice, 5, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
     @invoice = @list[0]

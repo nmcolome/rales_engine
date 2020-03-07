@@ -1,9 +1,9 @@
 require "rails_helper"
 
-RSpec.describe "Customer find_all endpoint" do
+RSpec.describe "Customer find_all endpoints" do
   before :each do
-    @customers = create_list(:customer, 5, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @customer1 = @customers[0]
+    @list = create_list(:customer, 5, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
+    @customer1 = @list[0]
   end
 
   describe "returns all customers that match the query" do

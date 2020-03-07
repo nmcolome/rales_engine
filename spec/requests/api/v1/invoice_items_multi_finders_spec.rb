@@ -1,9 +1,9 @@
 require "rails_helper"
 
-RSpec.describe "InvoiceItem find endpoints" do
+RSpec.describe "InvoiceItem find_all endpoints" do
   before :each do
-    @invoice_items = create_list(:invoice_item, 5, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @invoice_item = @invoice_items[0]
+    @list = create_list(:invoice_item, 5, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
+    @invoice_item = @list[0]
   end
 
   describe "returns all invoice_items that match the query" do
