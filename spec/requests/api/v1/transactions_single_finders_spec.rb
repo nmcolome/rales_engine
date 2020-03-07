@@ -36,7 +36,7 @@ RSpec.describe "Transaction find endpoints" do
       raw = JSON.parse(response.body)
       transaction = raw["data"]
 
-      expect(transaction["attributes"]["credit_card_expiration_date"]).to eq(@transaction.credit_card_expiration_date)
+      expect(transaction["attributes"]["credit_card_expiration_date"]).to eq(@transaction.credit_card_expiration_date.to_s)
     end
 
     it "finds based on result" do
