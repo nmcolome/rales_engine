@@ -25,8 +25,7 @@ RSpec.describe "Items endpoints" do
     item = raw["data"]
 
     expect(item["id"].to_i).to eq(id)
-    expect(item.keys).to eq(["id", "type", "attributes", "relationships"])
-    expect(item["attributes"].keys).to eq(["name", "description", "unit_price"])
-    expect(item["relationships"].keys).to eq(["merchant"])
+    expect(item.keys).to eq(["id", "type", "attributes"])
+    expect(item["attributes"].keys).to eq(["name", "description", "unit_price", "merchant_id"])
   end
 end

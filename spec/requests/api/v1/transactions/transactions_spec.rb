@@ -25,9 +25,8 @@ RSpec.describe "Transactions endpoints" do
     transaction = raw["data"]
 
     expect(transaction["id"].to_i).to eq(id)
-    expect(transaction.keys).to eq(%w[id type attributes relationships])
+    expect(transaction.keys).to eq(%w[id type attributes])
     expect(transaction["type"]).to eq("transactions")
-    expect(transaction["attributes"].keys).to eq(%w[credit_card_number credit_card_expiration_date result])
-    expect(transaction["relationships"].keys).to eq(["invoice"])
+    expect(transaction["attributes"].keys).to eq(%w[credit_card_number credit_card_expiration_date result invoice_id])
   end
 end

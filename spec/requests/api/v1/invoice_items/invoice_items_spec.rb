@@ -25,9 +25,8 @@ RSpec.describe "InvoiceItems endpoints" do
     invoice_item = raw["data"]
 
     expect(invoice_item["id"].to_i).to eq(id)
-    expect(invoice_item.keys).to eq(%w[id type attributes relationships])
+    expect(invoice_item.keys).to eq(%w[id type attributes])
     expect(invoice_item["type"]).to eq("invoice_items")
-    expect(invoice_item["attributes"].keys).to eq(%w[quantity unit_price])
-    expect(invoice_item["relationships"].keys).to eq(%w[item invoice])
+    expect(invoice_item["attributes"].keys).to eq(%w[quantity unit_price item_id invoice_id])
   end
 end
