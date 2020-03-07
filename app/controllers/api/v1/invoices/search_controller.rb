@@ -7,7 +7,7 @@ class Api::V1::Invoices::SearchController < ApplicationController
     if params["id"]
       Invoice.find(params["id"])
     elsif params["status"]
-      Invoice.find_by(status: params["status"])
+      Invoice.find_by(status: params["status"].downcase)
     elsif params["created_at"]
       Invoice.find_by(created_at: params["created_at"])
     elsif params["updated_at"]

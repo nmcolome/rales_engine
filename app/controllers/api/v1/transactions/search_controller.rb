@@ -11,7 +11,7 @@ class Api::V1::Transactions::SearchController < ApplicationController
     elsif params["credit_card_expiration_date"]
       Transaction.find_by(credit_card_expiration_date: params["credit_card_expiration_date"])
     elsif params["result"]
-      Transaction.find_by(result: params["result"])
+      Transaction.find_by(result: params["result"].downcase)
     elsif params["created_at"]
       Transaction.find_by(created_at: params["created_at"])
     elsif params["updated_at"]

@@ -7,7 +7,7 @@ class Api::V1::Merchants::SearchController < ApplicationController
     if params["id"]
       Merchant.find(params["id"])
     elsif params["name"]
-      Merchant.find_by(name: params["name"])
+      Merchant.find_by(name: params["name"].titlecase)
     elsif params["created_at"]
       Merchant.find_by(created_at: params["created_at"])
     elsif params["updated_at"]
