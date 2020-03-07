@@ -28,4 +28,8 @@ class Customer < ApplicationRecord
       Customer.where(updated_at: params["updated_at"])
     end
   end
+
+  def self.transactions(id)
+    Transaction.joins(:invoice).where(invoices: {customer_id: id})
+  end
 end
