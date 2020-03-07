@@ -39,7 +39,7 @@ RSpec.describe "Invoices relationships endpoints" do
 
   it "returns all items associated with an invoice" do
     id = create(:invoice).id
-    invoice_items = create_list(:transaction, 10, invoice_id: id)
+    invoice_items = create_list(:invoice_item, 10, invoice_id: id)
 
     get "/api/v1/invoices/#{id}/items"
 
@@ -49,45 +49,42 @@ RSpec.describe "Invoices relationships endpoints" do
     items = raw["data"]
 
     expect(items.count).to eq(10)
-    expect(items[0]["id"].to_i).to eq(invoice_items[0].id)
     expect(items[0]["type"]).to eq("items")
     expect(items[0].keys).to eq(["id", "type", "attributes"])
     expect(items[0]["attributes"].keys).to eq(["name", "description", "unit_price", "merchant_id"])
   end
 
-  it "returns all customers associated with an invoice" do
-    id = create(:invoice).id
-    invoice_customers = create_list(:customer, 10, invoice_id: id)
+  it "returns the customer associated with an invoice" do
+    customer = create(:customer)
+    id = create(:invoice, customer_id: customer.id)
 
-    get "/api/v1/invoices/#{id}/customers"
+    get "/api/v1/invoices/#{id}/customer"
 
     expect(response).to be_successful
 
     raw = JSON.parse(response.body)
     customers = raw["data"]
 
-    expect(customers.count).to eq(10)
-    expect(customers[0]["id"].to_i).to eq(invoice_customers[0].id)
-    expect(customers[0]["type"]).to eq("customers")
-    expect(customers[0].keys).to eq(["id", "type", "attributes"])
-    expect(customers[0]["attributes"].keys).to eq(["first_name", "last_name"])
+    expect(customers["id"].to_i).to eq(customer.id)
+    expect(customers["type"]).to eq("customers")
+    expect(customers.keys).to eq(["id", "type", "attributes"])
+    expect(customers["attributes"].keys).to eq(["first_name", "last_name"])
   end
 
-  it "returns all merchants associated with an invoice" do
-    id = create(:invoice).id
-    invoice_merchants = create_list(:transaction, 10, invoice_id: id)
+  it "returns the merchant associated with an invoice" do
+    merchant = create(:merchant)
+    id = create(:invoice, merchant_id: merchant.id)
 
-    get "/api/v1/invoices/#{id}/merchants"
+    get "/api/v1/invoices/#{id}/merchant"
 
     expect(response).to be_successful
 
     raw = JSON.parse(response.body)
     merchants = raw["data"]
 
-    expect(merchants.count).to eq(10)
-    expect(merchants[0]["id"].to_i).to eq(invoice_merchants[0].id)
-    expect(merchants[0]["type"]).to eq("merchants")
-    expect(merchants[0].keys).to eq(["id", "type", "attributes"])
-    expect(merchants[0]["attributes"].keys).to eq(["name"])
+    expect(merchants["id"].to_i).to eq(merchant.id)
+    expect(merchants["type"]).to eq("merchants")
+    expect(merchants.keys).to eq(["id", "type", "attributes"])
+    expect(merchants["attributes"].keys).to eq(["name"])
   end
 end
