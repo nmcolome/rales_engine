@@ -6,4 +6,28 @@ class Invoice < ApplicationRecord
   has_many :items, through: :invoice_items
 
   enum status: [:shipped, :pending, :canceled]
+
+  def self.search(params)
+    if params["id"]
+      Invoice.find(params["id"])
+    elsif params["status"]
+      Invoice.find_by(status: params["status"].downcase)
+    elsif params["created_at"]
+      Invoice.find_by(created_at: params["created_at"])
+    elsif params["updated_at"]
+      Invoice.find_by(updated_at: params["updated_at"])
+    end
+  end
+
+  def self.search_all(params)
+    if params["id"]
+      Invoice.find(params["id"])
+    elsif params["status"]
+      Invoice.where(status: params["status"].downcase)
+    elsif params["created_at"]
+      Invoice.where(created_at: params["created_at"])
+    elsif params["updated_at"]
+      Invoice.where(updated_at: params["updated_at"])
+    end
+  end
 end
