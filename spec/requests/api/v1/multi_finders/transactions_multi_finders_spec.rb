@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Transaction find_all endpoints" do
   before :each do
-    @list = create_list(:transaction, 5, credit_card_expiration_date: "2018-03-27", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
+    @list = create_list(:transaction, 5, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
     @transaction = @list[0]
   end
 
@@ -13,9 +13,10 @@ RSpec.describe "Transaction find_all endpoints" do
       expect(response).to be_successful
 
       raw = JSON.parse(response.body)
-      transaction = raw["data"]
+      transactions = raw["data"]
 
-      expect(transaction[0]["id"].to_i).to eq(@transaction.id)
+      expect(transactions.count).to eq(1)
+      expect(transactions[0]["id"].to_i).to eq(@transaction.id)
     end
 
     it "finds based on credit_card_number" do
@@ -27,21 +28,8 @@ RSpec.describe "Transaction find_all endpoints" do
       transactions = raw["data"]
 
       expect(transactions.count).to eq(5)
-    expect(transactions[0]["attributes"]["credit_card_number"]).to eq(@transaction.credit_card_number)
+      expect(transactions[0]["attributes"]["credit_card_number"]).to eq(@transaction.credit_card_number)
       expect(transactions[-1]["attributes"]["credit_card_number"]).to eq(@transaction.credit_card_number)
-    end
-
-    it "finds based on credit_card_expiration_date" do
-      get "/api/v1/transactions/find_all?credit_card_expiration_date=2018-03-27"
-
-      expect(response).to be_successful
-
-      raw = JSON.parse(response.body)
-      transactions = raw["data"]
-
-      expect(transactions.count).to eq(5)
-    expect(transactions[0]["attributes"]["credit_card_expiration_date"]).to eq(@transaction.credit_card_expiration_date.to_s)
-      expect(transactions[-1]["attributes"]["credit_card_expiration_date"]).to eq(@transaction.credit_card_expiration_date.to_s)
     end
 
     it "finds based on result" do
@@ -53,7 +41,7 @@ RSpec.describe "Transaction find_all endpoints" do
       transactions = raw["data"]
 
       expect(transactions.count).to eq(5)
-    expect(transactions[0]["attributes"]["result"]).to eq(@transaction.result)
+      expect(transactions[0]["attributes"]["result"]).to eq(@transaction.result)
       expect(transactions[-1]["attributes"]["result"]).to eq(@transaction.result)
     end
 
@@ -66,7 +54,7 @@ RSpec.describe "Transaction find_all endpoints" do
       transactions = raw["data"]
 
       expect(transactions.count).to eq(5)
-    expect(transactions[0]["id"].to_i).to eq(@transaction.id)
+      expect(transactions[0]["id"].to_i).to eq(@transaction.id)
     end
 
     it "finds based on updated_at" do
@@ -78,7 +66,20 @@ RSpec.describe "Transaction find_all endpoints" do
       transactions = raw["data"]
 
       expect(transactions.count).to eq(5)
-    expect(transactions[0]["id"].to_i).to eq(@transaction.id)
+      expect(transactions[0]["id"].to_i).to eq(@transaction.id)
+    end
+
+    it "finds based on invoice_id" do
+      get "/api/v1/transactions/find_all?invoice_id=#{@transaction.invoice_id}"
+
+      expect(response).to be_successful
+
+      raw = JSON.parse(response.body)
+      transactions = raw["data"]
+
+      expect(transactions.count).to eq(1)
+      expect(transactions[0]["id"]).to eq(@transaction.id.to_s)
+      expect(transactions[0]["attributes"]["invoice_id"].to_i).to eq(@transaction.invoice_id)
     end
   end
 end

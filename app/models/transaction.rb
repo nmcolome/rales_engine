@@ -34,6 +34,8 @@ class Transaction < ApplicationRecord
       Transaction.where(created_at: params["created_at"])
     elsif params["updated_at"]
       Transaction.where(updated_at: params["updated_at"])
+    elsif params["invoice_id"]
+      Transaction.where(invoice_id: params["invoice_id"])
     end
   end
 end

@@ -38,6 +38,8 @@ class Item < ApplicationRecord
       Item.where(created_at: params["created_at"])
     elsif params["updated_at"]
       Item.where(updated_at: params["updated_at"])
+    elsif params["merchant_id"]
+      Item.where(merchant_id: params["merchant_id"])
     end
   end
 end

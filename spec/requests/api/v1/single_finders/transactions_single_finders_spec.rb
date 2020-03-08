@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Transaction find endpoints" do
   before :each do
-    @transaction = create(:transaction, credit_card_expiration_date: "2018-03-27", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
+    @transaction = create(:transaction, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
   end
 
   describe "returns a single transaction based on any its attributes" do

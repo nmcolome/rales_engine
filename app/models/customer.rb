@@ -5,9 +5,9 @@ class Customer < ApplicationRecord
     if params["id"]
       Customer.find(params["id"])
     elsif params["first_name"]
-      Customer.find_by(first_name: params["first_name"].capitalize)
+      Customer.find_by(first_name: params["first_name"])
     elsif params["last_name"]
-      Customer.find_by(last_name: params["last_name"].capitalize)
+      Customer.find_by(last_name: params["last_name"])
     elsif params["created_at"]
       Customer.find_by(created_at: params["created_at"])
     elsif params["updated_at"]
@@ -19,9 +19,9 @@ class Customer < ApplicationRecord
     if params["id"]
       Customer.where(id: params["id"])
     elsif params["first_name"]
-      Customer.where(first_name: params["first_name"].capitalize)
+      Customer.where(first_name: params["first_name"])
     elsif params["last_name"]
-      Customer.where(last_name: params["last_name"].capitalize)
+      Customer.where(last_name: params["last_name"])
     elsif params["created_at"]
       Customer.where(created_at: params["created_at"])
     elsif params["updated_at"]

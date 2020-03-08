@@ -13,9 +13,10 @@ RSpec.describe "InvoiceItem find_all endpoints" do
       expect(response).to be_successful
 
       raw = JSON.parse(response.body)
-      invoice_item = raw["data"]
+      invoice_items = raw["data"]
 
-      expect(invoice_item[0]["id"].to_i).to eq(@invoice_item.id)
+      expect(invoice_items.count).to eq(1)
+      expect(invoice_items[0]["id"].to_i).to eq(@invoice_item.id)
     end
 
     it "finds based on quantity" do
@@ -32,7 +33,7 @@ RSpec.describe "InvoiceItem find_all endpoints" do
     end
 
     it "finds based on unit_price" do
-      get "/api/v1/invoice_items/find_all?unit_price=#{@invoice_item.unit_price}"
+      get "/api/v1/invoice_items/find_all?unit_price=#{(@invoice_item.unit_price/100.00).to_s}"
 
       expect(response).to be_successful
 
@@ -40,8 +41,8 @@ RSpec.describe "InvoiceItem find_all endpoints" do
       invoice_items = raw["data"]
 
       expect(invoice_items.count).to eq(5)
-      expect(invoice_items[0]["attributes"]["unit_price"]).to eq(@invoice_item.unit_price)
-      expect(invoice_items[-1]["attributes"]["unit_price"]).to eq(@invoice_item.unit_price)
+      expect(invoice_items[0]["attributes"]["unit_price"]).to eq((@invoice_item.unit_price/100.00).to_s)
+      expect(invoice_items[-1]["attributes"]["unit_price"]).to eq((@invoice_item.unit_price/100.00).to_s)
     end
 
     it "finds based on created_at" do
@@ -66,6 +67,32 @@ RSpec.describe "InvoiceItem find_all endpoints" do
 
       expect(invoice_items.count).to eq(5)
       expect(invoice_items[0]["id"].to_i).to eq(@invoice_item.id)
+    end
+
+    it "finds based on invoice_id" do
+      get "/api/v1/invoice_items/find_all?invoice_id=#{@invoice_item.invoice_id}"
+
+      expect(response).to be_successful
+
+      raw = JSON.parse(response.body)
+      invoice_items = raw["data"]
+
+      expect(invoice_items.count).to eq(1)
+      expect(invoice_items[0]["id"]).to eq(@invoice_item.id.to_s)
+      expect(invoice_items[0]["attributes"]["invoice_id"].to_i).to eq(@invoice_item.invoice_id)
+    end
+
+    it "finds based on item_id" do
+      get "/api/v1/invoice_items/find_all?item_id=#{@invoice_item.item_id}"
+
+      expect(response).to be_successful
+
+      raw = JSON.parse(response.body)
+      invoice_items = raw["data"]
+
+      expect(invoice_items.count).to eq(1)
+      expect(invoice_items[0]["id"]).to eq(@invoice_item.id.to_s)
+      expect(invoice_items[0]["attributes"]["item_id"].to_i).to eq(@invoice_item.item_id)
     end
   end
 end
