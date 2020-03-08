@@ -16,6 +16,8 @@ class Transaction < ApplicationRecord
       Transaction.find_by(created_at: params["created_at"])
     elsif params["updated_at"]
       Transaction.find_by(updated_at: params["updated_at"])
+    elsif params["invoice_id"]
+      Transaction.find_by(invoice_id: params["invoice_id"])
     end
   end
 

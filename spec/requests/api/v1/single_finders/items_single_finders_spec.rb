@@ -47,7 +47,7 @@ RSpec.describe "Items find endpoints" do
       raw = JSON.parse(response.body)
       item = raw["data"]
 
-      expect(item["attributes"]["unit_price"]).to eq(@item.unit_price)
+      expect(item["attributes"]["unit_price"]).to eq((@item.unit_price/100.00).to_s)
     end
 
     it "finds based on created_at" do
@@ -70,6 +70,18 @@ RSpec.describe "Items find endpoints" do
       item = raw["data"]
 
       expect(item["id"].to_i).to eq(@item.id)
+    end
+
+    it "finds based on merchant_id" do
+      get "/api/v1/items/find?merchant_id=#{@item.merchant_id}"
+
+      expect(response).to be_successful
+
+      raw = JSON.parse(response.body)
+      item = raw["data"]
+
+      expect(item["id"]).to eq(@item.id.to_s)
+      expect(item["attributes"]["merchant_id"].to_i).to eq(@item.merchant_id)
     end
 
     context "test the search is case insensitive" do

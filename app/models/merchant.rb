@@ -7,7 +7,7 @@ class Merchant < ApplicationRecord
     if params["id"]
       Merchant.find(params["id"])
     elsif params["name"]
-      Merchant.find_by(name: params["name"].titlecase)
+      Merchant.find_by(name: params["name"])
     elsif params["created_at"]
       Merchant.find_by(created_at: params["created_at"])
     elsif params["updated_at"]
@@ -19,7 +19,7 @@ class Merchant < ApplicationRecord
     if params["id"]
       Merchant.where(id: params["id"])
     elsif params["name"]
-      Merchant.where(name: params["name"].titlecase)
+      Merchant.where(name: params["name"])
     elsif params["created_at"]
       Merchant.where(created_at: params["created_at"])
     elsif params["updated_at"]

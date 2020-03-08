@@ -8,11 +8,16 @@ class InvoiceItem < ApplicationRecord
     elsif params["quantity"]
       InvoiceItem.find_by(quantity: params["quantity"])
     elsif params["unit_price"]
-      InvoiceItem.find_by(unit_price: params["unit_price"])
+      price = params["unit_price"].gsub(".","").to_i
+      InvoiceItem.find_by(unit_price: price)
     elsif params["created_at"]
       InvoiceItem.find_by(created_at: params["created_at"])
     elsif params["updated_at"]
       InvoiceItem.find_by(updated_at: params["updated_at"])
+    elsif params["invoice_id"]
+      InvoiceItem.find_by(invoice_id: params["invoice_id"])
+    elsif params["item_id"]
+      InvoiceItem.find_by(item_id: params["item_id"])
     end
   end
 

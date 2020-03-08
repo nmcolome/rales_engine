@@ -14,7 +14,7 @@ RSpec.describe "Invoice find endpoints" do
       raw = JSON.parse(response.body)
       invoice = raw["data"]
 
-      expect(invoice["id"].to_i).to eq(@invoice.id)
+      expect(invoice["id"]).to eq(@invoice.id.to_s)
     end
 
     it "finds based on status" do
@@ -36,7 +36,7 @@ RSpec.describe "Invoice find endpoints" do
       raw = JSON.parse(response.body)
       invoice = raw["data"]
 
-      expect(invoice["id"].to_i).to eq(@invoice.id)
+      expect(invoice["id"]).to eq(@invoice.id.to_s)
     end
 
     it "finds based on updated_at" do
@@ -47,7 +47,31 @@ RSpec.describe "Invoice find endpoints" do
       raw = JSON.parse(response.body)
       invoice = raw["data"]
 
-      expect(invoice["id"].to_i).to eq(@invoice.id)
+      expect(invoice["id"]).to eq(@invoice.id.to_s)
+    end
+
+    it "finds based on merchant_id" do
+      get "/api/v1/invoices/find?merchant_id=#{@invoice.merchant_id}"
+
+      expect(response).to be_successful
+
+      raw = JSON.parse(response.body)
+      invoice = raw["data"]
+
+      expect(invoice["id"]).to eq(@invoice.id.to_s)
+      expect(invoice["attributes"]["merchant_id"].to_i).to eq(@invoice.merchant_id)
+    end
+
+    it "finds based on customer_id" do
+      get "/api/v1/invoices/find?customer_id=#{@invoice.customer_id}"
+
+      expect(response).to be_successful
+
+      raw = JSON.parse(response.body)
+      invoice = raw["data"]
+
+      expect(invoice["id"]).to eq(@invoice.id.to_s)
+      expect(invoice["attributes"]["customer_id"].to_i).to eq(@invoice.customer_id)
     end
 
     context "test the search is case insensitive" do
