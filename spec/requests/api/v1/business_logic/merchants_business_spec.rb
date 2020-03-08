@@ -43,9 +43,12 @@ RSpec.describe "Merchants business endpoints" do
       expect(response).to be_successful
 
       raw = JSON.parse(response.body)
+      result = raw["data"]
 
-      expect(raw.keys).to eq(["total_revenue"])
-      expect(raw["total_revenue"]).to eq(2045.25)
+      expect(result.keys).to eq(%w[id type attributes])
+      expect(result["type"]).to eq("revenues")
+      expect(result["attributes"].keys).to eq(["total_revenue"])
+      expect(result["attributes"]["total_revenue"]).to eq("2045.25")
     end
   end
 end
