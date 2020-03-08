@@ -42,4 +42,12 @@ class Item < ApplicationRecord
       Item.where(merchant_id: params["merchant_id"])
     end
   end
+
+  def self.revenue_ranking(quantity)
+    Item.joins(invoice_items: [invoice: :transactions])
+        .merge(Transaction.success)
+        .group(:id)
+        .order("sum(quantity * invoice_items.unit_price) DESC")
+        .limit(quantity)
+  end
 end
