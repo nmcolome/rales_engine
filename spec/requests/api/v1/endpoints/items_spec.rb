@@ -26,6 +26,6 @@ RSpec.describe "Items endpoints" do
 
     expect(item["id"].to_i).to eq(id)
     expect(item.keys).to eq(["id", "type", "attributes"])
-    expect(item["attributes"].keys).to eq(["name", "description", "unit_price", "merchant_id"])
+    expect(item["attributes"].keys).to eq(["id", "name", "description", "unit_price", "merchant_id"])
   end
 end
