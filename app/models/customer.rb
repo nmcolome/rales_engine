@@ -32,4 +32,14 @@ class Customer < ApplicationRecord
   def self.transactions(id)
     Transaction.joins(:invoice).where(invoices: {customer_id: id})
   end
+
+  def self.top_merchant(id)
+    Customer.select('merchants.*')
+            .joins(invoices: [:merchant, :transactions])
+            .merge(Transaction.success)
+            .where(id: id)
+            .group("merchants.id")
+            .order("COUNT(invoices.id) DESC")
+            .first
+  end
 end
