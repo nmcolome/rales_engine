@@ -10,6 +10,7 @@ RSpec.describe "Merchants business endpoints" do
       create(:invoice, merchant_id: merchant_list[4].id)
       create(:invoice, merchant_id: merchant_list[1].id)
       Invoice.all.map { |i| create(:invoice_item, invoice_id: i.id) }
+      Invoice.all.map { |i| create(:transaction, invoice_id: i.id) }
 
       get "/api/v1/merchants/most_revenue?quantity=#{x}"
 
@@ -24,6 +25,27 @@ RSpec.describe "Merchants business endpoints" do
       expect(merchants[0]["type"]).to eq("merchants")
       expect(merchants[0].keys).to eq(["id", "type", "attributes"])
       expect(merchants[0]["attributes"].keys).to eq(["name"])
+    end
+  end
+
+  describe "/revenue?date=x" do
+    it "returns the total revenue for date x across all merchants" do
+      merchant_list = create_list(:merchant, 5)
+      create_list(:invoice, 3, merchant_id: merchant_list[0].id, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
+      create_list(:invoice, 6, merchant_id: merchant_list[2].id)
+      create(:invoice, merchant_id: merchant_list[4].id)
+      create(:invoice, merchant_id: merchant_list[1].id)
+      Invoice.all.map { |i| create(:invoice_item, invoice_id: i.id) }
+      Invoice.all.map { |i| create(:transaction, invoice_id: i.id) }
+
+      get "/api/v1/merchants/revenue?date=2012-03-27"
+
+      expect(response).to be_successful
+
+      raw = JSON.parse(response.body)
+
+      expect(raw.keys).to eq(["total_revenue"])
+      expect(raw["total_revenue"]).to eq(2045.25)
     end
   end
 end
