@@ -27,5 +27,8 @@ RSpec.describe "Items endpoints" do
     expect(item["id"].to_i).to eq(id)
     expect(item.keys).to eq(["id", "type", "attributes"])
     expect(item["attributes"].keys).to eq(["id", "name", "description", "unit_price", "merchant_id"])
+    expect(item["attributes"]["name"]).to eq("Flute")
+    expect(item["attributes"]["description"]).to eq("Create beautiful music with a flute. This is a description with 2 sentences.")
+    expect(item["attributes"]["unit_price"]).to eq("751.07")
   end
 end

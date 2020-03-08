@@ -28,5 +28,7 @@ RSpec.describe "Customers endpoints" do
     expect(customer.keys).to eq(["id", "type", "attributes"])
     expect(customer["type"]).to eq("customers")
     expect(customer["attributes"].keys).to eq(["id", "first_name", "last_name"])
+    expect(customer["attributes"]["first_name"]).to eq("Mariah")
+    expect(customer["attributes"]["last_name"]).to eq("Ondricka")
   end
 end

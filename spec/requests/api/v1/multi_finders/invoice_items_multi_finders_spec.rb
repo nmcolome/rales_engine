@@ -40,8 +40,8 @@ RSpec.describe "InvoiceItem find_all endpoints" do
       invoice_items = raw["data"]
 
       expect(invoice_items.count).to eq(5)
-      expect(invoice_items[0]["attributes"]["unit_price"].to_i).to eq(@invoice_item.unit_price)
-      expect(invoice_items[-1]["attributes"]["unit_price"].to_i).to eq(@invoice_item.unit_price)
+      expect(invoice_items[0]["attributes"]["unit_price"]).to eq(@invoice_item.unit_price)
+      expect(invoice_items[-1]["attributes"]["unit_price"]).to eq(@invoice_item.unit_price)
     end
 
     it "finds based on created_at" do
