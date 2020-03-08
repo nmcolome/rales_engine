@@ -28,6 +28,6 @@ RSpec.describe "merchants endpoints" do
     expect(merchant["type"]).to eq("merchants")
     expect(merchant.keys).to eq(["id", "type", "attributes"])
     expect(merchant["attributes"].keys).to eq(["id", "name"])
-    expect(customer["attributes"]["name"]).to eq("Kozey Group")
+    expect(merchant["attributes"]["name"]).to eq("Kozey Group")
   end
 end
