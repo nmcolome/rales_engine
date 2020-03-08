@@ -15,6 +15,6 @@ RSpec.describe "Transactions relationships endpoints" do
     expect(invoice["id"].to_i).to eq(id)
     expect(invoice["type"]).to eq("invoices")
     expect(invoice.keys).to eq(["id", "type", "attributes"])
-    expect(invoice["attributes"].keys).to eq(["status", "customer_id", "merchant_id"])
+    expect(invoice["attributes"].keys).to eq(["id", "status", "customer_id", "merchant_id"])
   end
 end

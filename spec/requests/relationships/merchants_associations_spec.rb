@@ -16,7 +16,7 @@ RSpec.describe "Merchants relationships endpoints" do
     expect(items[0]["id"].to_i).to eq(merchant_items[0].id)
     expect(items[0]["type"]).to eq("items")
     expect(items[0].keys).to eq(["id", "type", "attributes"])
-    expect(items[0]["attributes"].keys).to eq(["name", "description", "unit_price", "merchant_id"])
+    expect(items[0]["attributes"].keys).to eq(["id", "name", "description", "unit_price", "merchant_id"])
   end
 
   it "returns all invoices associated with a merchant" do
@@ -34,6 +34,6 @@ RSpec.describe "Merchants relationships endpoints" do
     expect(invoices[0]["id"].to_i).to eq(merchant_invoices[0].id)
     expect(invoices[0]["type"]).to eq("invoices")
     expect(invoices[0].keys).to eq(["id", "type", "attributes"])
-    expect(invoices[0]["attributes"].keys).to eq(["status", "customer_id", "merchant_id"])
+    expect(invoices[0]["attributes"].keys).to eq(["id", "status", "customer_id", "merchant_id"])
   end
 end
