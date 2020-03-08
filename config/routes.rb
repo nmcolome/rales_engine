@@ -11,6 +11,8 @@ Rails.application.routes.draw do
         get "/find", to: "search#show"
         get "/find_all", to: "search#index"
         get "/random", to: "random#show"
+        get "/most_revenue", to: "most_revenue#index"
+        get "/revenue", to: "revenue#index"
       end
 
       namespace :items do
