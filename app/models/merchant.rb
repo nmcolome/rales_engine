@@ -41,4 +41,14 @@ class Merchant < ApplicationRecord
             .merge(Transaction.success)
             .where("date(invoices.created_at) = '#{date}'")[0]
   end
+
+  def self.top_customer(merchant_id)
+    Merchant.select('customers.*')
+            .joins(invoices: [:invoice_items, :customer, :transactions])
+            .merge(Transaction.success)
+            .where(id: merchant_id)
+            .group("customers.id")
+            .order("COUNT(invoices.id) DESC")
+            .first
+  end
 end
