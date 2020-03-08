@@ -54,20 +54,5 @@ RSpec.describe "Merchant find_all endpoints" do
       expect(merchants.count).to eq(5)
       expect(merchants[0]["id"].to_i).to eq(@merchant.id)
     end
-
-    context "test the search is case insensitive" do
-      it "finds based on name when it's all in upcase" do
-        get "/api/v1/merchants/find_all?name=#{@merchant.name.upcase}"
-
-        expect(response).to be_successful
-
-        raw = JSON.parse(response.body)
-        merchants = raw["data"]
-
-        expect(merchants.count).to eq(5)
-        expect(merchants[0]["attributes"]["name"]).to eq(@merchant.name)
-        expect(merchants[-1]["attributes"]["name"]).to eq(@merchant.name)
-      end
-    end
   end
 end

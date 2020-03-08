@@ -14,7 +14,7 @@ RSpec.describe "InvoiceItem find endpoints" do
       raw = JSON.parse(response.body)
       invoice_item = raw["data"]
 
-      expect(invoice_item["id"].to_i).to eq(@invoice_item.id)
+      expect(invoice_item["id"]).to eq(@invoice_item.id.to_s)
     end
 
     it "finds based on quantity" do
@@ -36,7 +36,7 @@ RSpec.describe "InvoiceItem find endpoints" do
       raw = JSON.parse(response.body)
       invoice_item = raw["data"]
 
-      expect(invoice_item["attributes"]["unit_price"].to_i).to eq(@invoice_item.unit_price)
+      expect(invoice_item["attributes"]["unit_price"]).to eq((@invoice_item.unit_price/100.00).to_s)
     end
 
     it "finds based on created_at" do
@@ -47,7 +47,7 @@ RSpec.describe "InvoiceItem find endpoints" do
       raw = JSON.parse(response.body)
       invoice_item = raw["data"]
 
-      expect(invoice_item["id"].to_i).to eq(@invoice_item.id)
+      expect(invoice_item["id"]).to eq(@invoice_item.id.to_s)
     end
 
     it "finds based on updated_at" do
@@ -58,7 +58,31 @@ RSpec.describe "InvoiceItem find endpoints" do
       raw = JSON.parse(response.body)
       invoice_item = raw["data"]
 
-      expect(invoice_item["id"].to_i).to eq(@invoice_item.id)
+      expect(invoice_item["id"]).to eq(@invoice_item.id.to_s)
+    end
+
+    it "finds based on invoice_id" do
+      get "/api/v1/invoice_items/find?invoice_id=#{@invoice_item.invoice_id}"
+
+      expect(response).to be_successful
+
+      raw = JSON.parse(response.body)
+      invoice_item = raw["data"]
+
+      expect(invoice_item["id"]).to eq(@invoice_item.id.to_s)
+      expect(invoice_item["attributes"]["invoice_id"].to_i).to eq(@invoice_item.invoice_id)
+    end
+
+    it "finds based on item_id" do
+      get "/api/v1/invoice_items/find?item_id=#{@invoice_item.item_id}"
+
+      expect(response).to be_successful
+
+      raw = JSON.parse(response.body)
+      invoice_item = raw["data"]
+
+      expect(invoice_item["id"]).to eq(@invoice_item.id.to_s)
+      expect(invoice_item["attributes"]["item_id"].to_i).to eq(@invoice_item.item_id)
     end
   end
 end

@@ -16,7 +16,7 @@ RSpec.describe "Customer relationships endpoints" do
     expect(invoices[0]["id"].to_i).to eq(customer_invoices[0].id)
     expect(invoices[0]["type"]).to eq("invoices")
     expect(invoices[0].keys).to eq(["id", "type", "attributes"])
-    expect(invoices[0]["attributes"].keys).to eq(["status", "customer_id", "merchant_id"])
+    expect(invoices[0]["attributes"].keys).to eq(["id", "status", "customer_id", "merchant_id"])
   end
 
   it "returns all transactions associated with a customer" do
@@ -37,6 +37,6 @@ RSpec.describe "Customer relationships endpoints" do
     expect(transactions[0]["id"].to_i).to eq(customer_transactions.flatten[0].id)
     expect(transactions[0]["type"]).to eq("transactions")
     expect(transactions[0].keys).to eq(["id", "type", "attributes"])
-    expect(transactions[0]["attributes"].keys).to eq(["credit_card_number", "credit_card_expiration_date", "result", "invoice_id"])
+    expect(transactions[0]["attributes"].keys).to eq(["id", "credit_card_number", "result", "invoice_id"])
   end
 end

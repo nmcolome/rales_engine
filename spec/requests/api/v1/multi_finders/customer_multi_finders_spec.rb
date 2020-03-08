@@ -66,22 +66,6 @@ RSpec.describe "Customer find_all endpoints" do
 
       expect(customers.count).to eq(5)
       expect(customers[0]["id"].to_i).to eq(@customer1.id)
-
-    end
-
-    context "test the search is case insensitive" do
-      it "finds based on first_name when it's all in upcase" do
-        get "/api/v1/customers/find_all?first_name=#{@customer1.first_name.upcase}"
-
-        expect(response).to be_successful
-
-        raw = JSON.parse(response.body)
-        customers = raw["data"]
-
-        expect(customers.count).to eq(5)
-        expect(customers[0]["attributes"]["first_name"]).to eq(@customer1.first_name)
-        expect(customers[-1]["attributes"]["first_name"]).to eq(@customer1.first_name)
-      end
     end
   end
 end

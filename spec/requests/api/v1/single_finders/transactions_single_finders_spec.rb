@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Transaction find endpoints" do
   before :each do
-    @transaction = create(:transaction, credit_card_expiration_date: "2018-03-27", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
+    @transaction = create(:transaction, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
   end
 
   describe "returns a single transaction based on any its attributes" do
@@ -26,17 +26,6 @@ RSpec.describe "Transaction find endpoints" do
       transaction = raw["data"]
 
       expect(transaction["attributes"]["credit_card_number"]).to eq(@transaction.credit_card_number)
-    end
-
-    it "finds based on credit_card_expiration_date" do
-      get "/api/v1/transactions/find?credit_card_expiration_date=2018-03-27"
-
-      expect(response).to be_successful
-
-      raw = JSON.parse(response.body)
-      transaction = raw["data"]
-
-      expect(transaction["attributes"]["credit_card_expiration_date"]).to eq(@transaction.credit_card_expiration_date.to_s)
     end
 
     it "finds based on result" do
@@ -72,17 +61,16 @@ RSpec.describe "Transaction find endpoints" do
       expect(transaction["id"].to_i).to eq(@transaction.id)
     end
 
-    context "test the search is case insensitive" do
-      it "finds based on result when it's all in upcase" do
-        get "/api/v1/transactions/find?result=#{@transaction.result.upcase}"
+    it "finds based on invoice_id" do
+      get "/api/v1/transactions/find?invoice_id=#{@transaction.invoice_id}"
 
-        expect(response).to be_successful
+      expect(response).to be_successful
 
-        raw = JSON.parse(response.body)
-        transaction = raw["data"]
+      raw = JSON.parse(response.body)
+      transaction = raw["data"]
 
-        expect(transaction["attributes"]["result"]).to eq(@transaction.result)
-      end
+      expect(transaction["id"]).to eq(@transaction.id.to_s)
+      expect(transaction["attributes"]["invoice_id"].to_i).to eq(@transaction.invoice_id)
     end
   end
 end
