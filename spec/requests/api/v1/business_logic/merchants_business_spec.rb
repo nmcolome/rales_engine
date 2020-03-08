@@ -10,8 +10,8 @@ RSpec.describe "Merchants business endpoints" do
         create_list(:invoice, 6, merchant_id: merchant_list[2].id)
         create(:invoice, merchant_id: merchant_list[4].id)
         create(:invoice, merchant_id: merchant_list[1].id)
-        Invoice.all.map { |i| create(:invoice_item, invoice_id: i.id) }
-        Invoice.all.map { |i| create(:transaction, invoice_id: i.id) }
+        Invoice.all.each { |i| create(:invoice_item, invoice_id: i.id) }
+        Invoice.all.each { |i| create(:transaction, invoice_id: i.id) }
 
         get "/api/v1/merchants/most_revenue?quantity=#{x}"
 
@@ -36,8 +36,8 @@ RSpec.describe "Merchants business endpoints" do
         create_list(:invoice, 6, merchant_id: merchant_list[2].id)
         create(:invoice, merchant_id: merchant_list[4].id)
         create(:invoice, merchant_id: merchant_list[1].id)
-        Invoice.all.map { |i| create(:invoice_item, invoice_id: i.id) }
-        Invoice.all.map { |i| create(:transaction, invoice_id: i.id) }
+        Invoice.all.each { |i| create(:invoice_item, invoice_id: i.id) }
+        Invoice.all.each { |i| create(:transaction, invoice_id: i.id) }
 
         get "/api/v1/merchants/revenue?date=2012-03-27"
 
@@ -61,8 +61,8 @@ RSpec.describe "Merchants business endpoints" do
         customers = create_list(:customer, 4)
         create_list(:invoice, 3, customer_id: customers[0].id, merchant_id: merchant.id)
         customers.each { |c| create(:invoice, customer_id: c.id, merchant_id: merchant.id)}
-        Invoice.all.map { |i| create(:invoice_item, invoice_id: i.id) }
-        Invoice.all.map { |i| create(:transaction, invoice_id: i.id) }
+        Invoice.all.each { |i| create(:invoice_item, invoice_id: i.id) }
+        Invoice.all.each { |i| create(:transaction, invoice_id: i.id) }
 
         get "/api/v1/merchants/#{merchant.id}/favorite_customer"
 
