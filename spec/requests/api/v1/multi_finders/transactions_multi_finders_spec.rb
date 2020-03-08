@@ -80,20 +80,5 @@ RSpec.describe "Transaction find_all endpoints" do
       expect(transactions.count).to eq(5)
     expect(transactions[0]["id"].to_i).to eq(@transaction.id)
     end
-
-    context "test the search is case insensitive" do
-      it "finds based on result when it's all in upcase" do
-        get "/api/v1/transactions/find_all?result=#{@transaction.result.upcase}"
-
-        expect(response).to be_successful
-
-        raw = JSON.parse(response.body)
-        transactions = raw["data"]
-
-        expect(transactions.count).to eq(5)
-        expect(transactions[0]["attributes"]["result"]).to eq(@transaction.result)
-        expect(transactions[-1]["attributes"]["result"]).to eq(@transaction.result)
-      end
-    end
   end
 end

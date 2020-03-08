@@ -73,18 +73,5 @@ RSpec.describe "Invoice find endpoints" do
       expect(invoice["id"]).to eq(@invoice.id.to_s)
       expect(invoice["attributes"]["customer_id"].to_i).to eq(@invoice.customer_id)
     end
-
-    context "test the search is case insensitive" do
-      it "finds based on status when it's all in upcase" do
-        get "/api/v1/invoices/find?status=#{@invoice.status.upcase}"
-
-        expect(response).to be_successful
-
-        raw = JSON.parse(response.body)
-        invoice = raw["data"]
-
-        expect(invoice["attributes"]["status"]).to eq(@invoice.status)
-      end
-    end
   end
 end

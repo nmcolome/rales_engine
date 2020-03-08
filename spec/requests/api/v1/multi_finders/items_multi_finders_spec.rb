@@ -75,33 +75,5 @@ RSpec.describe "Items find_all endpoints" do
       expect(items.count).to eq(5)
       expect(items[0]["id"].to_i).to eq(@item.id)
     end
-
-    context "test the search is case insensitive" do
-      it "finds based on name when it's all in upcase" do
-        get "/api/v1/items/find_all?name=#{@item.name.upcase}"
-
-        expect(response).to be_successful
-
-        raw = JSON.parse(response.body)
-        items = raw["data"]
-
-        expect(items.count).to eq(5)
-        expect(items[0]["attributes"]["name"]).to eq(@item.name)
-        expect(items[-1]["attributes"]["name"]).to eq(@item.name)
-      end
-
-      it "finds based on description when it's all in downcase" do
-        get "/api/v1/items/find_all?description=#{@item.description.downcase}"
-
-        expect(response).to be_successful
-
-        raw = JSON.parse(response.body)
-        items = raw["data"]
-
-        expect(items.count).to eq(5)
-        expect(items[0]["attributes"]["description"]).to eq(@item.description)
-        expect(items[-1]["attributes"]["description"]).to eq(@item.description)
-      end
-    end
   end
 end
