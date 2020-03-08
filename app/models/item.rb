@@ -50,4 +50,13 @@ class Item < ApplicationRecord
         .order("sum(quantity * invoice_items.unit_price) DESC")
         .limit(quantity)
   end
+
+  def self.best_day(id)
+    Item.select("DATE(invoices.created_at) AS best_day")
+    .joins(invoice_items: :invoice)
+    .where(id: id)
+    .group("DATE(invoices.created_at)", :id)
+    .order("sum(quantity * invoice_items.unit_price) DESC, best_day DESC")
+    .limit(1)[0]
+  end
 end
