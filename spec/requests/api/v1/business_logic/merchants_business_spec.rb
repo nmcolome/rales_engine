@@ -24,7 +24,7 @@ RSpec.describe "Merchants business endpoints" do
       expect(merchants[1]["id"].to_i).to eq(merchant_list[0].id)
       expect(merchants[0]["type"]).to eq("merchants")
       expect(merchants[0].keys).to eq(["id", "type", "attributes"])
-      expect(merchants[0]["attributes"].keys).to eq(["name"])
+      expect(merchants[0]["attributes"].keys).to eq(["id", "name"])
     end
   end
 
